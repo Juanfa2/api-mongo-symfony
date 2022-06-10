@@ -22,7 +22,7 @@ class MemeController extends AbstractController{
         $dm->persist($product);
         $dm->flush();
     
-        return new Response('Created product id ' . $product->getId());
+        return new Response('Created Meme whit id: ' . $product->getId());
     }
 
 
@@ -37,5 +37,19 @@ class MemeController extends AbstractController{
             "memes"=>$cursor->toArray()
         ]);
         //return new Response(json_encode($meme));
+    }
+
+    /**
+     * @Route(path="/delete/{id}", name ="delete_meme", methods={"POST"})
+     */
+    public function deleteMeme(DocumentManager $dm, $id){
+        //$cursor = $dm->getDocumentCollection(Meme::class)->find();
+        
+        $meme = $dm->getRepository(Meme::class)->find($id);
+        $dm->remove($meme);
+        $dm->flush();
+        return $this->json([
+            "message"=>"Delete success"
+        ]);
     }
 }

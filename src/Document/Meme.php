@@ -1,10 +1,11 @@
 <?php
 namespace App\Document;
 
+use App\Repository\MemeRepository;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
-/** @ODM\Document */
-class Meme
+/** @ODM\Document(repositoryClass=MemeRepository::class) */
+class Meme implements \JsonSerializable
 {
     /** @ODM\Id */
     private $id;
@@ -37,6 +38,15 @@ class Meme
 
     public function setEmail($email){
          $this->email = $email;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            "id" => $this->getId(),
+            "name"=> $this->getName(),
+            "email" => $this->getEmail()
+        ];
     }
 
 
