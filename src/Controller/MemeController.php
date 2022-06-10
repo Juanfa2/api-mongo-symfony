@@ -40,7 +40,7 @@ class MemeController extends AbstractController{
     }
 
     /**
-     * @Route(path="/delete/{id}", name ="delete_meme", methods={"POST"})
+     * @Route(path="/delete/{id}", name ="delete_meme", methods={"DELETE"})
      */
     public function deleteMeme(DocumentManager $dm, $id){
         //$cursor = $dm->getDocumentCollection(Meme::class)->find();
